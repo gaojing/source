@@ -1,4 +1,6 @@
 title: 用github和hexo搭建blog
+categories: hexo
+tags: hexo
 ---
 
 ## 前言

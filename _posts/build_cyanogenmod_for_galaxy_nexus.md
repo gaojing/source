@@ -1,4 +1,6 @@
 titile: compile cm for galaxy nexus
+categories: cyanogenmod
+tags: [Android, cyanogenmod]
 ---
 为galaxy nexus编译cm-10.2的步骤
 
