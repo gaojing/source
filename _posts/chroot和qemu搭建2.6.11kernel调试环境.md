@@ -76,3 +76,6 @@ unmount
 在chroot环境中export TERM=xterm
 2. 	qemu运行时报tty1 no such file
 mount的时候sudo mknod /mnt/dev/tty1 c 4 1
+
+### 参考
+[http://nowmovealong.blogspot.com/2010/04/compiling-and-running-linux-2611.html](http://nowmovealong.blogspot.com/2010/04/compiling-and-running-linux-2611.html)
