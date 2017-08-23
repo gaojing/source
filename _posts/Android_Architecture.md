@@ -90,3 +90,9 @@ Treble从Android OS framework中分离了vendor implementation， 通过新添�
 # 5. Kernel
 
 ## Linux kernel development
+
+## Modular Kernel Requirement
+在Android O中，内核被分为SOC，device和board-specific。
+
+### Loadable kernel modules
+ 
