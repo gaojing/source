@@ -95,4 +95,11 @@ Treble从Android OS framework中分离了vendor implementation， 通过新添�
 在Android O中，内核被分为SOC，device和board-specific。
 
 ### Loadable kernel modules
- 
+
+# 6. HIDL
+HAL interface definition language or HIDL is an interface description language (IDL) to specify the interface between a HAL and its users.   
+HIDL用于IPC。   
+HIDL specifies data structures and method signatures, organized in interfaces (similar to a class) that are collected into packages.
+
+## HIDL设计
+HIDL的目标是framework可以单独被替换不需要编译HALs。由Vendors或者SOC厂商编译的HALs被放在/vendor分区，framework在单独的分区。
