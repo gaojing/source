@@ -7,8 +7,8 @@ tags: [Android]
 
 ###  下载repo
 
-    curl https://mirrors.tuna.tsinghua.edu.cn/git/git-repo -o ～/bin/repo
-    chmod +x repo
+    curl https://mirrors.tuna.tsinghua.edu.cn/git/git-repo -o ~/bin/repo
+    chmod +x ~/bin/repo
 
  将下面内容加进.bashrc中
 
