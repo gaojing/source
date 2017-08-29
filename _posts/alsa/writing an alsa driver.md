@@ -48,10 +48,23 @@ chip-specific相关的信息保存在chip-specific record中，例如
 
 有两种分配chip record的方法
 
-- 通过snd_card_create()函数   
+- 通过snd_card_create()函数 
 
+		err = snd_card_create(index[dev], id[dev], THIS_MODULE, sizeof(struct mychip), &card);
 
-- 发
+	然后用下面方式访问
+
+		struct mychip *chip = card->private_data;
+
+- 分配额外的设备   
+通过snd\_card\_create()(第四个参数设成0)
+
+		struct snd_card *card;
+
+		struct mychip *chip;
+		err = snd_card_create(index[dev], id[dev], THIS_MODULE, 0, &card);
+			.....
+		chip = kzalloc(sizeof(*chip), GFP_KERNEL);	
 
 
 
