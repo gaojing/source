@@ -15,7 +15,7 @@ PCI声卡最小的流程
 - 创建init()函数调用pci_register_driver()注册pci_driver
 - 创建exit()函数调用pci_unregister_driver()
 
-# Chapter 3 Management of Cards andComponents
+# Chapter 3 Management of Cards and Components
 
 ## Card Instance
 对于每个声卡， 必须分配一个card record。
@@ -64,9 +64,35 @@ chip-specific相关的信息保存在chip-specific record中，例如
 		struct mychip *chip;
 		err = snd_card_create(index[dev], id[dev], THIS_MODULE, 0, &card);
 			.....
-		chip = kzalloc(sizeof(*chip), GFP_KERNEL);	
+		chip = kzalloc(sizeof(*chip), GFP_KERNEL);
+		
+		struct mychip {
+			struct snd_card *card;
+			....
+		};	
+
+		chip->card = card;
+
+		static struct snd_device_ops ops = {
+			.dev_free = snd_mychip_dev_free,
+		};
+		....
+		snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
+
+## registration and release
+当所有component都分配了，通过snd_card_register()注册card instance。这个时候可以访问设备文件。
+
+出错的话，调用snd_card_free()然后退出probe函数。
+
+# Chapter 4. PCI Resource Management
+PCI资源在probe函数中分配。
+
+## 4.1 分配资源
+
+# Chapter 5. PCM interface
 
 
 
 
-[111](https://www.alsa-project.org/main/index.php/ALSA_Driver_Documentation)
+[111](https://www.alsa-project.org/main/index.php/ALSA_Driver_Documentation)   
+[writing an alsa driver](https://www.kernel.org/doc/html/v4.10/sound/kernel-api/writing-an-alsa-driver.html)
