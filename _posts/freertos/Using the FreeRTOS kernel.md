@@ -47,3 +47,13 @@ vTaskDelete()
 ## 1.10 the scheduling algorithm
 - Prioritized Preemptive Scheduling
 
+# 2. QUEUE MANAGEMENT
+
+## 2.2 Characteristics of a Queue
+- Queue可以包含多个固定大小的数据。
+- 读写Queue时可以设置block time，当没有数据可读或者无空间可写时阻塞。
+
+## 2.3 Using a queue
+- xQueueCreate()   
+
+
