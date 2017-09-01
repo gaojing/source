@@ -20,4 +20,6 @@ alsa cards与声卡硬件对应， 大多数alsa硬件访问位于device层。
 数字音频包含采样率，通道数和sample value存储的格式等参数。ALSA通过一个N维的空间来描述这些参数。
 
 ## ALSA devices and plugins
-为了防止混淆，
+为了防止混淆，ALSA设备由字符串标注。
+
+hw plugin
