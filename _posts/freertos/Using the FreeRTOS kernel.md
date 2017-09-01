@@ -55,5 +55,9 @@ vTaskDelete()
 
 ## 2.3 Using a queue
 - xQueueCreate()   
+- xQueueSendToBack() and xQueueSendToFront()
+- xQueueReceive() and xQueuePeek()
+- uxQueueMessagesWaiting()   
+获取queue数据个数
 
 
