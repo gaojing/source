@@ -94,4 +94,39 @@ main函数
 		    }
 		}
 
+	主循环:
+	
+	- 从消息队列中读取消息
+	- 如果消息是退出命令，结束循环，消息为空，继续读取或者等段时间再读取，负责根据具体情况进行处理。
+	- 循环知道退出。
 
+	binder_parse解析消息
+
+	- 1. BR_TRANSACTION   
+	对BR\_TRANSACTION的处理主要由func来完成，将结果返回给binder驱动。   
+	
+			- 注册   
+			当一个binder server创建后，他们要将[名称，Binder句柄】告诉SM进行备案。
+			- 查询   
+			应用程序向binder发送查询请求。
+			- 其他信息查询
+		
+### 6.4.3 获取ServiceManager服务  -- 设计思考
+访问SM(Binder Server)的流程
+
+- 打开binder设备
+- 执行mmap
+- 通过binder驱动向SM发送请求
+- 获得结果
+
+设计
+
+- 发请求可能是APK应用，需提供java接口
+- 封装流程方便更好的使用
+- 每个进程只允许打开一次binder设备，做一次内存映射，防止消耗越来越多的系统资源。
+
+#### ProcessState和IPCThreadState
+创建一个类专门来管理每个应用进程的binder操作，ProcessState.   
+与Binder驱动进行实际命令通信的是IPCThreadState。
+			
+	
