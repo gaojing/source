@@ -130,6 +130,18 @@ main函数
 与Binder驱动进行实际命令通信的是IPCThreadState。
 
 #### proxy
-ServiceManagerProxy
+ServiceManagerProxy和ServiceManager。
+
+#### IBinder和BpBinder
+BpBinder，native层IBinder接口类的具体实现类。
+
+#### ProcessState和IPCThreadState
+实现ProcessState：
+
+- 一个进程只有一个ProcessState实例
+- 向上层提供IPC服务
+- 与IPCThreadState分工
+
+ 
 			
 	

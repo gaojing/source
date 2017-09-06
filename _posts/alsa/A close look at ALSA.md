@@ -16,7 +16,7 @@ ALSA通过cards， devices和subdevices层级来描述音频硬件设备。
 
 alsa cards与声卡硬件对应， 大多数alsa硬件访问位于device层。
 
-##　PCM parameters and the configuration space
+## PCM parameters and the configuration space
 数字音频包含采样率，通道数和sample value存储的格式等参数。ALSA通过一个N维的空间来描述这些参数。
 
 ## ALSA devices and plugins
@@ -32,7 +32,7 @@ configuration file用来定义alsa device。
 
 Alsa支持三种层级的配置文件。第一个是alsa.conf，通常在alsa数据目录，/usr/share/alsa。第二个系统全局配置文件在/etc/asoundrc。用户自己的配置文件.asoundrc。
 
-##　Basic configuration file format
+## Basic configuration file format
 alsa配置文件是按层级组织的parameter-value对。最上一层与alsa提供的interface对应。alsa的interface由一些alsa api的集合构成，包含打开设备，操作，关闭设备等。   
 列出PCM interface的定义
 
