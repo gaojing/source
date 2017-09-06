@@ -128,5 +128,8 @@ main函数
 #### ProcessState和IPCThreadState
 创建一个类专门来管理每个应用进程的binder操作，ProcessState.   
 与Binder驱动进行实际命令通信的是IPCThreadState。
+
+#### proxy
+ServiceManagerProxy
 			
 	
