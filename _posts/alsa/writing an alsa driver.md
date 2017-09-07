@@ -15,6 +15,61 @@ PCI声卡最小的流程
 - 创建init()函数调用pci_register_driver()注册pci_driver
 - 创建exit()函数调用pci_unregister_driver()
 
+## Driver Constructor
+PCI Driver的实际构造函数是probe回调。在probe函数中
+
+1. 检查并增加device index
+
+		static int dev;
+		....
+		if (dev >= SNDRV_CARDS)
+		        return -ENODEV;
+		if (!enable[dev]) {
+		        dev++;
+		        return -ENOENT;
+		}
+
+2. 创建card instance
+
+		struct snd_card *card;
+		int err;
+		....
+		err = snd_card_new(&pci->dev, index[dev], id[dev], THIS_MODULE,
+		                   0, &card);
+
+3. 创建一个main component
+
+		struct mychip *chip;
+		....
+		err = snd_mychip_create(card, pci, &chip);
+		if (err < 0) {
+		        snd_card_free(card);
+		        return err;
+		}
+
+4. 设置driver id和名称
+
+		strcpy(card->driver, "My Chip");
+		strcpy(card->shortname, "My Own Chip 123");
+		sprintf(card->longname, "%s at 0x%lx irq %i",
+		        card->shortname, chip->ioport, chip->irq);
+
+5. Create other components, such as mixer, MIDI, etc.
+
+6. Register the card instance
+
+		err = snd_card_register(card);
+		if (err < 0) {
+		        snd_card_free(card);
+		        return err;
+		}
+
+7. Set the PCI driver data and return zero.
+
+		pci_set_drvdata(pci, card);
+		dev++;
+		return 0;
+
 # Chapter 3 Management of Cards and Components
 
 ## Card Instance
@@ -26,7 +81,7 @@ PCI声卡最小的流程
 
 	struct snd_card *card;
 	int err;
-	err = snd_card_create(index, id, module, extra_size, &card);
+	err = snd_card_new(&pci->dev, index, id, module, extra_size, &card);
 
 index是card-index number，id string， module pointer， extra-data size， 返回指向card instance的指针。
 
@@ -48,7 +103,7 @@ chip-specific相关的信息保存在chip-specific record中，例如
 
 有两种分配chip record的方法
 
-- 通过snd_card_create()函数 
+- 通过snd\_card\_create()函数 
 
 		err = snd_card_create(index[dev], id[dev], THIS_MODULE, sizeof(struct mychip), &card);
 
@@ -127,10 +182,10 @@ ALSA的PCM中间层只需要实现low-level function来访问硬件。
 	pcm->info_flags = SNDRV_PCM_INFO_HALF_DUPLEX;
 
 ## running pointer
-当pcm substream打开时，一个pcm runtime instance被分配给substream，通过substream->runtime访问。runtime包含用来控制PCM的信息：hw_params和sw_params配置的拷贝，buffer指针，mmap record， spinlocks等。
+当pcm substream打开时，一个pcm runtime instance被分配给substream，通过substream->runtime访问。runtime包含用来控制PCM的信息：hw\_params和sw\_params配置的拷贝，buffer指针，mmap record， spinlocks等。
 
 ## hardware description
-struct snd_pcm_hardware包含硬件的信息，在pcm open callback中定义。
+struct snd\_pcm\_hardware包含硬件的信息，在pcm open callback中定义。
 
 ## PCM Configurations
 PCM configuration保存在runtime instance中，在应用程序通过alsa-lib发送hw_params后。
@@ -169,8 +224,72 @@ callback参数最少有一个指向struct snd_pcm_substream的指针，通过它
 ### prepare callback
 	static int snd_xxx_prepare(struct snd_pcm_substream *substream);
 
+### trigger callback
+当pcm被start，stop或者pause时调用
 
+	static int snd_xxx_trigger(struct snd_pcm_substream *substream, int cmd);
 
+### pointer callback
+当PCM middle layer查询buffer位置时调用。
+
+	static snd_pcm_uframes_t snd_xxx_pointer(struct snd_pcm_substream *substream)
+
+## PCM interrupt handler
+PCM终端处理函数更新buffer position并且通知PCM中间层当buffer位置超过规定的period size时。调用snd_pcm_period_elapsed()函数。
+
+# Control interface
+## general
+## 定义controls
+创建一个control，需要定义三种callback：info，get和put。然后定义一个struct snd\_kcontrol\_new record。
+
+	static struct snd_kcontrol_new my_control = {
+        .iface = SNDRV_CTL_ELEM_IFACE_MIXER,
+        .name = "PCM Playback Switch",
+        .index = 0,
+        .access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
+        .private_value = 0xffff,
+        .info = my_control_info,
+        .get = my_control_get,
+        .put = my_control_put
+	};
+
+iface指定control的类型，SNDRV_CTL_ELEM_IFACE_XXX,通常是MIXER。如果是global control的话使用CARD。如果与特定的device相关的话使用HWDEP, PCM, RAWMIDI, TIMER, or SEQUENCER并且通过device和subdevice指定device number。
+
+## Control Names
+用"SOURCE DIRECTION FUNCTION"三部分定义。
+
+SOURCE，指定control的source。
+
+DIRECTION，“Playback”, “Capture”, “Bypass Playback” and “Bypass Capture”中的一个。
+
+FUNCTION，“Switch”, “Volume” and “Route”中的一个。
+
+## Global capture and playback
+“Capture Source”, “Capture Switch” and “Capture Volume”
+“Playback Switch” and “Playback Volume”
+
+## Tone-controls
+“Tone Control - XXX”
+
+## 3D controls
+## Mic boost
+
+## Access Flags
+
+## Control Callbacks
+### info callback
+获取control的信息。
+### get callback
+### put callback
+
+## Control Constructor
+通过snd_ctl_new1() and snd_ctl_add()创建control。
+
+## Metadata
+提供mixer control的db值，使用DECLARE_TLV_xxx宏。
+
+# Buffer and memory management
+## Buffer Types
 
 [111](https://www.alsa-project.org/main/index.php/ALSA_Driver_Documentation)   
 [writing an alsa driver](https://www.kernel.org/doc/html/v4.10/sound/kernel-api/writing-an-alsa-driver.html)
