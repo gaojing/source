@@ -37,3 +37,6 @@ PCM devices come in two varieties: output and input. MIDI devices are output onl
 ## asound.conf
 
 # Plugins
+
+# Device Names
+
