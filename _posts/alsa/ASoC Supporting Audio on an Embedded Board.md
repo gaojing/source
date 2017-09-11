@@ -1,4 +1,4 @@
-title: ASoC: Supporting Audio on an Embedded Board
+title: ASoC Supporting Audio on an Embedded Board
 categories: ALSA
 tags: [ALSA]
 ---
