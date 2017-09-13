@@ -290,6 +290,19 @@ FUNCTION，“Switch”, “Volume” and “Route”中的一个。
 
 # Buffer and memory management
 ## Buffer Types
+分配物理连续的空间
+
+	snd_malloc_xxx_pages()
+
+释放
+
+	snd_free_xxx_pages()
+
+# proc interface
+创建proc文件
+
+	struct snd_info_entry *entry;
+	int err = snd_card_proc_new(card, "my-file", &entry);
 
 [111](https://www.alsa-project.org/main/index.php/ALSA_Driver_Documentation)   
 [writing an alsa driver](https://www.kernel.org/doc/html/v4.10/sound/kernel-api/writing-an-alsa-driver.html)
