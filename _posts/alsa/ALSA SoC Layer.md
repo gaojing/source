@@ -122,6 +122,72 @@ I2S operating mode：
 - PCM
 
 # Chapter 4 Dynamic Audio Power Management for Portable Devices
+DAPM是为了使用最小的power而设计的。
+
+在DAPM中有4个power domains
+- Codec bias domain
+- Platform/Machine domain
+- Path domain
+- Stream domain
+
+## DAPM Widgets
+有以下一些类型
+
+- mixer
+- Mux
+- PGA
+- ADC
+- DAC
+- Switch
+- Input
+- Output
+- Headphone
+- Mic
+- Line
+- Speaker
+- Supply
+- Regulator
+- Clock
+- AIF IN
+- AIF OUT
+- Siggen
+- DAI IN
+- DAI OUT
+- DAI Link
+- Pre
+- Post
+
+## Stream Domain Widgets
+stream widgets包含adc,dac,aif in和aif out
+
+	SND_SOC_DAPM_DAC(name, stream name, reg, shift, invert),
+	SND_SOC_DAPM_AIF_IN(name, stream, slot, reg, shift, invert)
+
+stream name和dai中的name要一致。
+
+## Path Domain Widgets
+可以影响audio和signal path的
+
+	SND_SOC_DAPM_MIXER(name, reg, shift, invert, controls, num_controls)
+
+## Machine domain Widgets
+Machine widget没有codec register bit关联。
+
+- Speaker Amp
+- Microphone Bias
+- Jack connectors
+
+## Codec (BIAS) Domain
+The codec bias power domain has no widgets and is handled by the codecs DAPM event handler. This handler is called when the codec powerstate is changed wrt to any stream event or by kernel PM events.
+
+## Virtual Widgets
+没有soft power control。
+
+
+当所有widget定义了后，通过snd_soc_dapm_new_control()注册。
+
+## Codec/DSP Widget Interconnections
+widget通过audio path在codec，platform和machine间连接到一起（interconnection），每个interconnection都要被定义形成audio path的map。
 
 # Chapter 5 ASoC Platform Driver
 ASoc platform driver由audio DMA drivers, SoC DAI drivers and DSP drivers组成。
