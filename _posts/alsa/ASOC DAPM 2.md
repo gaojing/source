@@ -26,3 +26,4 @@ path用来将widget连接到一起。
 				 struct snd_soc_dapm_widget *sink);
 	};
 
+[ALSA声卡驱动中的DAPM详解之二：widget-具备路径和电源管理信息的kcontrol](http://blog.csdn.net/DroidPhone/article/details/12906139)
