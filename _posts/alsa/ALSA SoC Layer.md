@@ -205,7 +205,7 @@ DMA driver可以支持下面operation
 	      int (*trigger)(struct snd_pcm_substream *, int);
 	};
 
-platform driver通过snd_soc_platform_driver到处DMA功能
+platform driver通过snd_soc_platform_driver导出DMA功能
 
 	struct snd_soc_platform_driver {
 	      char *name;
@@ -276,3 +276,5 @@ The machine driver can contain codec and platform specific code. It registers th
 	
 	      ...
 	};
+
+# Audio Clocking
