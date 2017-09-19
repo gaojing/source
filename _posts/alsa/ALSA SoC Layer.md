@@ -277,4 +277,7 @@ The machine driver can contain codec and platform specific code. It registers th
 	      ...
 	};
 
-# Audio Clocking
+# Dynamic PCM
+DPCM允许alsa设备digital route PCM audio到不同的digital endpoint上。
+
+## DPCM machine driver
