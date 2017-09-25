@@ -30,6 +30,7 @@ twl6040\_codec\_probe被调用
 
 # codec定义的kcontrol
 根据twl6040 codec定义了以下control
+
 - capture前置放大音量
 - capture音量
 - Aux FM音量
