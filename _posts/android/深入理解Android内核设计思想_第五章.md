@@ -43,3 +43,17 @@ Looper从MessageQueue中取出一个Message后，首先调用Handler.dispatchMes
 	final boolean sendEmptyMessage(int what)
 	...
 
+## MessageQueue
+源码路径: frameworks/base/core/java/android/os
+### 新建队列
+由构造函数和本地方法nativeInit组成
+### 元素入列
+	final boolean enqueueMessage(Message msg, long when)
+
+## Looper
+
+## UI主线程 ActivityThread
+
+# 5.4 Thread类
+
+
