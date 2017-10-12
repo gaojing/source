@@ -60,4 +60,10 @@ vTaskDelete()
 - uxQueueMessagesWaiting()   
 获取queue数据个数
 
+# 3. INTERRUPT MANAGEMENT
+## 3.1 CHAPTER INTRODUCTION AND SCOPE
 
+## 3.2 DEFERRED INTERRUPT PROCESSING   
+- vSemaphoreCreateBinary() 
+- xSemaphoreTake()
+- 

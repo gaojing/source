@@ -12,8 +12,8 @@ PCI声卡最小的流程
 - probe()
 - remove()
 - 创建包含指向上面三个内容的指针的结构体pci_driver
-- 创建init()函数调用pci_register_driver()注册pci_driver
-- 创建exit()函数调用pci_unregister_driver()
+- 创建init()函数调用pci\_register\_driver()注册pci\_driver
+- 创建exit()函数调用pci\_unregister\_driver()
 
 ## Driver Constructor
 PCI Driver的实际构造函数是probe回调。在probe函数中
