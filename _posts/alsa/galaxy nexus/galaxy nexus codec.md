@@ -48,3 +48,5 @@ mux的输出接到MicAmpL上
 ### 2. 右模拟麦克风输入选择
 和左模拟麦克风类似
 
+
+[试探Galaxy的音频设计框架](http://blog.csdn.net/azloong/article/details/7307506)
