@@ -18,4 +18,4 @@ MediaPlayer和MediaRecorder是开发音频相关产品使用最广泛的两个�
 
 ## 13.3 音频系统的核心 AudioFlinger
 ### 13.3.1 AudioFlinger服务的启动和运行
-Android系统服务分为Java层和Native层的system service，AudioFlinger和SurfaceFlinger属于后者。AudioFlinger利用一个linux程序来间接创建。
+Android系统服务分为Java层和Native层的system service，AudioFlinger和SurfaceFlinger属于后者。AudioFlinger利用一个linux程序来间接创建。frameworks/av/media/mediaserver/Main_mediaserver.cpp
