@@ -4,6 +4,8 @@ categories: android
 
 adb pull /system/vendor/etc/sirfgps.conf
 
+place it in  vendor/samsung/maguro/proprietary/sirfgps.conf
+
 Next, add the following to vendor/samsung/maguro/proprietary/Android.mk
 
 ###################################
