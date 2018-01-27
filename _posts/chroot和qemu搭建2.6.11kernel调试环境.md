@@ -1,4 +1,4 @@
-titile: chroot和qemu搭建2.6.11kernel调试环境
+title: chroot和qemu搭建2.6.11kernel调试环境
 categories: linux
 tags: [linux]
 ---
