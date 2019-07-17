@@ -2,6 +2,14 @@ title: ASOC Platform
 categories: ALSA
 tags: [ALSA]
 ---
+
+# Table of Contents
+- [1. Overview](#section1)
+- [2. HAL](#section2)
+	- [2.1 HAL modules](#section2.1)
+
+
+
 # 1. Platform驱动在ASoC中的作用
 Platform驱动的主要作用是完成音频数据的管理，最终通过CPU的数字音频接口（DAI）把音频数据传送给Codec进行处理，最终由Codec输出驱动耳机或者是喇叭的音信信号。在具体实现上，ASoC有把Platform驱动分为两个部分：snd\_soc\_platform\_driver和snd\_soc\_dai\_driver。其中，platform\_driver负责管理音频数据，把音频数据通过dma或其他操作传送至cpu dai中，dai\_driver则主要完成cpu一侧的dai的参数配置，同时也会通过一定的途径把必要的dma等参数与snd\_soc\_platform\_driver进行交互。
 
